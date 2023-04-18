@@ -1,6 +1,7 @@
 import json
 from netmiko import ConnectHandler
 
+
 def question_9(net_connect):
     pass
 
@@ -34,6 +35,10 @@ def question_17(net_connect):
 
 
 def get_inventory():
+    with open('../inventory/host.json') as f:
+        host = json.load(f)
+        print(host)
+        return host
     pass
 
 
@@ -47,12 +52,19 @@ def question_21():
 if __name__ == "__main__":    
     r01 = {
         'device_type': 'cisco_ios',
-        'host':   'xx.xx.xx.xx',
-        'username': 'xx',
-        'password': 'xx'
+        'host':   '172.16.100.126',
+        'username': 'cisco',
+        'password': 'cisco'
     }
-    #net_connect = ConnectHandler(**r01)
-    
+    inventaire = get_inventory()
+    for materiel in inventaire:
+        name = materiel['hostname']
+        dict = { 'device_type': materiel['device_type'], 'host': materiel['ip'], 
+            'username': materiel['username'], 'password': materiel['password'] }
+        net_connect = ConnectHandler(**dict)
+        output = net_connect.send_config_from_file('../config/vlan_'+name+'.conf')
+        output = net_connect.save_config()
+
     #question_9(net_connect)
     #question_10(net_connect)
     #question_11(net_connect)

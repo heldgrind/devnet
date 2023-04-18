@@ -23,20 +23,20 @@ def save_built_config(file_name, data):
 
 
 def create_vlan_config_cpe_marseille():
-    r2_data= load_json_data_from_file(file_path='../data/R2.json')
+    r02_data= load_json_data_from_file(file_path='../data/R2.json')
     esw2_data = load_json_data_from_file(file_path='../data/ESW2.json')
-    r2_config = render_network_config(template_name='vlan_router.j2',data=r2_data)
+    r02_config = render_network_config(template_name='vlan_router.j2',data=r02_data)
     ESW2_config = render_network_config(template_name="vlan_switch.j2",data=esw2_data)
-    return r2_config,ESW2_config
+    return r02_config,ESW2_config
     pass
 
 
 def create_vlan_config_cpe_paris():
-    r3_data = load_json_data_from_file(file_path='../data/R3.json')
+    r03_data = load_json_data_from_file(file_path='../data/R3.json')
     esw3_data = load_json_data_from_file(file_path='../data/ESW3.json')
-    r3_config = render_network_config(template_name="vlan_router.j2",data=r3_data)
-    ESW3_config = render_network_config(template_name="vlan_switch.j2",data=esw3_data)
-    return r3_config,ESW3_config
+    r03_config = render_network_config(template_name="vlan_router.j2",data=r03_data)
+    esw3_config = render_network_config(template_name="vlan_switch.j2",data=esw3_data)
+    return r03_config,esw3_config
     pass
 
 
