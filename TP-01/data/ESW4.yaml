@@ -1,0 +1,13 @@
+interface_trunk: "f1/3"
+vlan_interfaces:
+-
+  id: '99'
+  ip: '172.16.100.253'
+  mask: '255.255.255.192'
+interfaces:
+-
+  name: 'f1/1'
+  vlan_id : '10'
+-
+  name: 'f1/2'
+  vlan_id : '20'

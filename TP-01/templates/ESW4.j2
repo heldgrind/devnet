@@ -1,0 +1,16 @@
+int {{interface_trunk}}
+    switchport mode trunk
+    no shut
+    exit
+{% for vlan_interface in vlan_interfaces%}
+interface vlan {{vlan_interface.id}}
+    ip addr {{vlan_interface.ip}} {{vlan_interface.mask}}
+    exit
+{% endfor %}
+{% for interface in interfaces %}
+interface {{interface.name}}
+    switchport mode access 
+    switchport access vlan {{interface.vlan_id}}
+    no shut
+    exit 
+{% endfor %}

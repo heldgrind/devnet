@@ -1,0 +1,7 @@
+
+{% for interface in interfaces %}
+interface {{interface.name}}
+    switchport access vlan {{vlan_id}}
+    no shut
+    exit 
+{% endfor %}

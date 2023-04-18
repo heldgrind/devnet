@@ -1,0 +1,8 @@
+{
+    "hostname":"ESW2",
+    "interface_10" : "fa 1/1",
+    "interface_20": "fa 1/2",
+    "vlan_access" : "switchport mode access",
+    "vlan_10" : "10",
+    "vlan_20" :"20"
+}

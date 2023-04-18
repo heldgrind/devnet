@@ -1,0 +1,12 @@
+{
+    "hostname" : "R2",
+    "interface_name_10" : "g0/0.10",
+    "vlan_id_10":"10",
+    "ip_address_10" : "172.16.30.254",
+    "netmask_10":"255.255.255.0",
+
+    "interface_name_20" : "g0/0.20",
+    "vlan_id_20":"20",
+    "ip_address_20" : "172.16.40.254",
+    "netmask_20":"255.255.255.0"
+}
