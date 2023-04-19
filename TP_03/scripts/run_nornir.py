@@ -1,12 +1,19 @@
-
+from nornir import InitNornir
 
 def question_13(nr):
+    print(nr.__dict__)
     pass
 
 def question_14(nr):
+    host = nr.inventory.hosts
+    print(host)
+    print(type(host))
     pass
 
 def question_15(nr):
+    premier = nr.inventory.hosts['R1-CPE-BAT-B']
+    print(premier)
+    print(type(premier))
     pass
 
 def question_16(nr):
@@ -83,11 +90,11 @@ def question_40(nr):
     
 
 if __name__ == "__main__":
-    #nr = InitNornir(config_file="inventory/config.yaml")
+    nr = InitNornir(config_file="inventory/config.yaml")
 
     #question_13(nr)
     #question_14(nr)
-    #question_15(nr)
+    question_15(nr)
     #question_16(nr)
     #question_17(nr)
     #question_18(nr)
