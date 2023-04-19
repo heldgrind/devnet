@@ -17,6 +17,14 @@ def question_15(nr):
     pass
 
 def question_16(nr):
+    premier = nr.inventory.hosts['R1-CPE-BAT-B']
+    print(dir(premier))
+    name = premier.name
+    password = premier.password
+    ip = premier.hostname
+    print(name)
+    print(password)
+    print(ip)
     pass
 
 def question_17(nr):
@@ -94,8 +102,8 @@ if __name__ == "__main__":
 
     #question_13(nr)
     #question_14(nr)
-    question_15(nr)
-    #question_16(nr)
+    #question_15(nr)
+    question_16(nr)
     #question_17(nr)
     #question_18(nr)
     #question_19(nr)
