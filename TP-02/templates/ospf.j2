@@ -1,0 +1,4 @@
+{% for network in reseau %}
+router ospf 1
+network {{ network.ip }} {{ network.wildcard }} area {{ network.area }}
+{% endfor %}

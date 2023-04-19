@@ -1,8 +1,8 @@
 {
         "interfaces":[
             {
-            "name":"f1/1",
-            "vlan_id":"10"
+                "name":"f1/1",
+                "vlan_id":"10"
             },
             {
                 "name":"f1/2",

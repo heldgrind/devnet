@@ -1,9 +1,10 @@
 import json
+import re
 from napalm import get_network_driver
 
 
 def get_inventory():
-    with open('../inventory/host.json') as f:
+    with open('inventory/host.json') as f:
         host = json.load(f)
         print(host)
         return host
@@ -41,9 +42,14 @@ def question_29(device):
 
 
 def question_30(device):
-    result= device.load_merge_candidate(config='/home/config/loopback_R01.conf')
+    with open('config/loopback_R01.conf') as f:
+        fichier = f.read()
+    device.load_merge_candidate(config=fichier)
     print(device.compare_config())
     device.commit_config()
+    command = ["sh ip int brief"]
+    output = device.cli(command)
+    print(output)
     pass
 
 
@@ -52,6 +58,25 @@ def question_31():
 
 
 def question_32():
+    inventaire = get_inventory()
+    i=1
+    for materiel in inventaire :
+        if re.match(r"R0*",materiel['hostname']):
+            print(materiel['hostname'])
+            hostname = materiel['ip']
+            username = materiel['username']
+            password = materiel['password']
+            materiel= {'hostname':hostname,'username':username,'password':password}
+            driver = get_network_driver('ios')
+            routeur = driver(**materiel)
+            routeur.open()
+            with open('config/ospf_R0'+str(i)+'.conf') as f:
+                fichier = f.read()
+            routeur.load_merge_candidate(config=fichier)
+            print(routeur.compare_config())
+            routeur.commit_config()
+            i += 1
+        
     pass
 
 
@@ -75,7 +100,7 @@ if __name__ == "__main__":
     #question_27(device)
     #question_28(device)
     #question_29(device)
-    question_30(device)
+    #question_30(device)
     #question_31()
-    #question_32()
+    question_32()
     #question_34()
