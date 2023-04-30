@@ -7,6 +7,9 @@ name = "pypi"
 jinja2 = "*"
 pyyaml = "*"
 netmiko = "*"
+nornir-utils = "*"
+nornir-napalm = "*"
+nornir-netmiko = "*"
 
 [dev-packages]
 
