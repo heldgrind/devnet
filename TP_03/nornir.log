@@ -238,3 +238,435 @@ TypeError: netmiko_send_command() missing 1 required positional argument: 'comma
 2023-04-30 20:31:01,198 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['interface Loopback 2', 'ip address 2.2.2.3 255.255.255.255']} on 1 hosts
 2023-04-30 20:32:04,424 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
 2023-04-30 20:32:06,239 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:11:44,748 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:11:55,855 - nornir.core.task -    ERROR -      start() - Host 'R1-CPE-BAT-A': task 'netmiko_send_config' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_netmiko/tasks/netmiko_send_config.py", line 38, in netmiko_send_config
+    result = net_connect.send_config_set(config_commands=config_commands, **kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/netmiko/base_connection.py", line 2202, in send_config_set
+    output += self.read_until_pattern(pattern=re.escape(cmd.strip()))
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/netmiko/base_connection.py", line 672, in read_until_pattern
+    raise ReadTimeout(msg)
+netmiko.exceptions.ReadTimeout: 
+
+Pattern not detected: 'interface\\ g2/0\\\n\\ \\ \\ \\ no\\ shutdown\\\n\\ \\ \\ \\ exit\\\ninterface\\ g2/0\\.10\\\n\\ \\ \\ \\ encapsulation\\ dot1Q\\ 10\\\n\\ \\ \\ \\ description\\ "Gateway\\ for\\ teacher\\ vlan"\\\n\\ \\ \\ \\ ip\\ address\\ 172\\.16\\.10\\.253\\ 255\\.255\\.255\\.0\\\n\\ \\ \\ \\ exit\\\n\\\ninterface\\ g2/0\\.20\\\n\\ \\ \\ \\ encapsulation\\ dot1Q\\ 20\\\n\\ \\ \\ \\ description\\ "Gateway\\ for\\ student\\ vlan"\\\n\\ \\ \\ \\ ip\\ address\\ 172\\.16\\.20\\.253\\ 255\\.255\\.255\\.0\\\n\\ \\ \\ \\ exit' in output.
+
+Things you might try to fix this:
+1. Adjust the regex pattern to better identify the terminating string. Note, in
+many situations the pattern is automatically based on the network device's prompt.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+
+2023-05-01 11:11:55,866 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:14:33,362 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:14:41,427 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:17:07,514 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:17:15,488 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:17:17,618 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.254 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.254 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:17:29,144 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:17:31,668 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\nvlan 10\n    name teacher\n    exit\nvlan 20\n    name student\n    exit\n\n\ninterface fa1/14\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/15\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/1\n    switchport mode access\n    switchport access vlan 10\n    description "port vlan teacher"\n    exit\n\ninterface fa1/2\n    switchport mode access\n    switchport access vlan 20\n    description "port vlan student"\n    exit'} on 1 hosts
+2023-05-01 11:17:44,480 - nornir.core.task -    ERROR -      start() - Host 'ESW1-CPE-BAT-A': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 36, in napalm_configure
+    device.load_merge_candidate(filename=filename, config=configuration)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 317, in load_merge_candidate
+    return_status, msg = self._load_candidate_wrapper(
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 271, in _load_candidate_wrapper
+    (return_status, msg) = self._scp_file(
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 733, in _scp_file
+    return self._xfer_file(
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 802, in _xfer_file
+    raise CommandErrorException(msg)
+napalm.base.exceptions.CommandErrorException: SCP file transfers are not enabled. Configure 'ip scp server enable' on the device.
+
+2023-05-01 11:17:44,499 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:19:27,991 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:19:34,845 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:19:37,067 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.254 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.254 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:19:47,386 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:19:49,758 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\nvlan 10\n    name teacher\n    exit\nvlan 20\n    name student\n    exit\n\n\ninterface fa1/14\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/15\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/1\n    switchport mode access\n    switchport access vlan 10\n    description "port vlan teacher"\n    exit\n\ninterface fa1/2\n    switchport mode access\n    switchport access vlan 20\n    description "port vlan student"\n    exit'} on 1 hosts
+2023-05-01 11:20:18,697 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:21:25,080 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:21:32,266 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:21:34,292 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.254 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.254 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:21:44,894 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:21:47,401 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\nvlan 10\n    name teacher\n    exit\nvlan 20\n    name student\n    exit\n\n\ninterface fa1/14\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/15\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/1\n    switchport mode access\n    switchport access vlan 10\n    description "port vlan teacher"\n    exit\n\ninterface fa1/2\n    switchport mode access\n    switchport access vlan 20\n    description "port vlan student"\n    exit'} on 1 hosts
+2023-05-01 11:22:13,245 - nornir.core.task -    ERROR -      start() - Host 'ESW1-CPE-BAT-A': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 539, in commit_config
+    self._gen_rollback_cfg()
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 467, in wrapper
+    return f(self, *args, **kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 832, in _gen_rollback_cfg
+    self.device.send_command(cmd)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/netmiko/utilities.py", line 592, in wrapper_decorator
+    return func(self, *args, **kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/netmiko/base_connection.py", line 1721, in send_command
+    raise ReadTimeout(msg)
+netmiko.exceptions.ReadTimeout: 
+Pattern not detected: 'ESW1\\-CPE\\-BAT\\-A\\#' in output.
+
+Things you might try to fix this:
+1. Explicitly set your pattern using the expect_string argument.
+2. Increase the read_timeout to a larger value.
+
+You can also look at the Netmiko session_log or debug log for more information.
+
+
+
+2023-05-01 11:22:13,253 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:22:13,255 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    encapsulation dot1Q \n    description "**NO DESCRIPTION**"\n    ip address  \n    exit\n\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.253 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.253 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:22:20,661 - nornir.core.task -    ERROR -      start() - Host 'R1-CPE-BAT-B': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 36, in napalm_configure
+    device.load_merge_candidate(filename=filename, config=configuration)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 317, in load_merge_candidate
+    return_status, msg = self._load_candidate_wrapper(
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 271, in _load_candidate_wrapper
+    (return_status, msg) = self._scp_file(
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 733, in _scp_file
+    return self._xfer_file(
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 802, in _xfer_file
+    raise CommandErrorException(msg)
+napalm.base.exceptions.CommandErrorException: SCP file transfers are not enabled. Configure 'ip scp server enable' on the device.
+
+2023-05-01 11:22:20,663 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:22:20,665 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    encapsulation dot1Q \n    description "**NO DESCRIPTION**"\n    ip address  \n    exit\n\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.254 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.254 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:22:26,650 - nornir.core.task -    ERROR -      start() - Host 'R2-CPE-BAT-B': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 36, in napalm_configure
+    device.load_merge_candidate(filename=filename, config=configuration)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 317, in load_merge_candidate
+    return_status, msg = self._load_candidate_wrapper(
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 271, in _load_candidate_wrapper
+    (return_status, msg) = self._scp_file(
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 733, in _scp_file
+    return self._xfer_file(
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 802, in _xfer_file
+    raise CommandErrorException(msg)
+napalm.base.exceptions.CommandErrorException: SCP file transfers are not enabled. Configure 'ip scp server enable' on the device.
+
+2023-05-01 11:22:26,653 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:22:26,655 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\nvlan 10\n    name teacher\n    exit\nvlan 20\n    name student\n    exit\n\n\ninterface fa1/14\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/15\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/1\n    switchport mode access\n    switchport access vlan 10\n    description "port vlan teacher"\n    exit\n\ninterface fa1/2\n    switchport mode access\n    switchport access vlan 20\n    description "port vlan student"\n    exit'} on 1 hosts
+2023-05-01 11:23:06,157 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:27:59,221 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:28:00,251 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:28:02,376 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:28:04,927 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:28:07,492 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:28:10,353 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:28:13,506 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:28:20,119 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:28:21,024 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.254 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.254 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:28:30,721 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:28:31,868 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\nvlan 10\n    name teacher\n    exit\nvlan 20\n    name student\n    exit\n\n\ninterface fa1/14\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/15\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/1\n    switchport mode access\n    switchport access vlan 10\n    description "port vlan teacher"\n    exit\n\ninterface fa1/2\n    switchport mode access\n    switchport access vlan 20\n    description "port vlan student"\n    exit'} on 1 hosts
+2023-05-01 11:28:54,857 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:28:58,139 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    encapsulation dot1Q \n    description "**NO DESCRIPTION**"\n    ip address  \n    exit\n\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.253 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.253 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:29:16,010 - nornir.core.task -    ERROR -      start() - Host 'R1-CPE-BAT-B': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+    encapsulation dot1Q 
+                  ^
+% Invalid input detected at '^' marker.
+
+    ip address  
+% Incomplete command.
+
+386 bytes copied in 0.248 secs (1556 bytes/sec)
+
+2023-05-01 11:29:16,016 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:29:16,017 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    encapsulation dot1Q \n    description "**NO DESCRIPTION**"\n    ip address  \n    exit\n\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.254 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.254 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:29:36,240 - nornir.core.task -    ERROR -      start() - Host 'R2-CPE-BAT-B': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+    encapsulation dot1Q 
+                  ^
+% Invalid input detected at '^' marker.
+
+    ip address  
+% Incomplete command.
+
+386 bytes copied in 0.524 secs (737 bytes/sec)
+
+2023-05-01 11:29:36,246 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:29:36,247 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\nvlan 10\n    name teacher\n    exit\nvlan 20\n    name student\n    exit\n\n\ninterface fa1/14\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/15\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/1\n    switchport mode access\n    switchport access vlan 10\n    description "port vlan teacher"\n    exit\n\ninterface fa1/2\n    switchport mode access\n    switchport access vlan 20\n    description "port vlan student"\n    exit'} on 1 hosts
+2023-05-01 11:30:09,121 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:32:40,021 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:32:41,258 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:32:43,570 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:32:46,379 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:32:49,000 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:32:52,148 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 11:32:56,132 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:33:03,164 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:33:04,114 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.254 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.254 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:33:14,160 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:33:15,294 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\nvlan 10\n    name teacher\n    exit\nvlan 20\n    name student\n    exit\n\n\ninterface fa1/14\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/15\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/1\n    switchport mode access\n    switchport access vlan 10\n    description "port vlan teacher"\n    exit\n\ninterface fa1/2\n    switchport mode access\n    switchport access vlan 20\n    description "port vlan student"\n    exit'} on 1 hosts
+2023-05-01 11:33:47,657 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:33:52,311 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.253 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.253 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:34:06,570 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:34:07,688 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.254 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.254 255.255.255.0\n    exit\n'} on 1 hosts
+2023-05-01 11:34:22,617 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 11:34:23,723 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\nvlan 10\n    name teacher\n    exit\nvlan 20\n    name student\n    exit\n\n\ninterface fa1/14\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/15\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/1\n    switchport mode access\n    switchport access vlan 10\n    description "port vlan teacher"\n    exit\n\ninterface fa1/2\n    switchport mode access\n    switchport access vlan 20\n    description "port vlan student"\n    exit'} on 1 hosts
+2023-05-01 11:34:51,800 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:09:48,737 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 12:09:49,770 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 12:09:51,586 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 12:09:53,839 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 12:09:56,279 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 12:09:58,768 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_config' with args {'config_commands': ['ip scp server enable']} on 1 hosts
+2023-05-01 12:10:01,748 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n\n\n\ninterface g2/0.10\n    vrrp 10 ip 172.16.10.252\n    vrrp 10  priority 100\n\ninterface g2/0.20\n    vrrp 20 ip 172.16.20.252\n    vrrp 20  priority 100'} on 1 hosts
+2023-05-01 12:10:09,303 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:10:10,096 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.254 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.254 255.255.255.0\n    exit\n\n\n\ninterface g2/0.10\n    vrrp 10 ip 172.16.10.252\n    vrrp 10  priority 110\n    vrrp 10 preempt\n    exit\n\ninterface g2/0.20\n    vrrp 20 ip 172.16.20.252\n    vrrp 20  priority 110\n    vrrp 20 preempt\n    exit'} on 1 hosts
+2023-05-01 12:10:22,010 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:10:22,841 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\nvlan 10\n    name teacher\n    exit\nvlan 20\n    name student\n    exit\n\n\ninterface fa1/14\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/15\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/1\n    switchport mode access\n    switchport access vlan 10\n    description "port vlan teacher"\n    exit\n\ninterface fa1/2\n    switchport mode access\n    switchport access vlan 20\n    description "port vlan student"\n    exit'} on 1 hosts
+2023-05-01 12:10:46,185 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:10:49,318 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.253 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.253 255.255.255.0\n    exit\n\n\n\ninterface g3/0.10\n    vrrp 10 ip 172.16.30.252\n    vrrp 10  priority 100\n\ninterface g3/0.20\n    vrrp 20 ip 172.16.40.252\n    vrrp 20  priority 100'} on 1 hosts
+2023-05-01 12:11:01,580 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:11:02,538 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.254 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.254 255.255.255.0\n    exit\n\n\n\ninterface g3/0.10\n    vrrp 10 ip 172.16.30.252\n    vrrp 10  priority 110\n    vrrp 10 preempt\n    exit\n\ninterface g3/0.20\n    vrrp 20 ip 172.16.40.252\n    vrrp 20  priority 110\n    vrrp 20 preempt\n    exit'} on 1 hosts
+2023-05-01 12:11:17,257 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:11:18,711 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\nvlan 10\n    name teacher\n    exit\nvlan 20\n    name student\n    exit\n\n\ninterface fa1/14\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/15\n    switchport mode trunk\n    switchport trunk allowed vlan all\n    exit\n\ninterface fa1/1\n    switchport mode access\n    switchport access vlan 10\n    description "port vlan teacher"\n    exit\n\ninterface fa1/2\n    switchport mode access\n    switchport access vlan 20\n    description "port vlan student"\n    exit'} on 1 hosts
+2023-05-01 12:11:46,559 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:20:13,758 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_command' with args {'command_string': 'show vrrp brief'} on 4 hosts
+2023-05-01 12:23:32,285 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_command' with args {'command_string': 'show vrrp brief'} on 4 hosts
+2023-05-01 12:23:42,685 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_command' with args {'command_string': 'show vrrp brief'} on 4 hosts
+2023-05-01 12:24:01,453 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_command' with args {'command_string': 'show vrrp brief'} on 4 hosts
+2023-05-01 12:24:25,954 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_command' with args {'command_string': 'show vrrp brief'} on 4 hosts
+2023-05-01 12:25:43,151 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_command' with args {'command_string': 'show vrrp brief'} on 4 hosts
+2023-05-01 12:26:05,038 -  nornir.core -     INFO -        run() - Running task 'netmiko_send_command' with args {'command_string': 'show vrrp brief'} on 4 hosts
+2023-05-01 12:43:54,308 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n\n\n\ninterface g2/0.10\n    vrrp 10 ip 172.16.10.252\n    vrrp 10  priority 100\n\ninterface g2/0.20\n    vrrp 20 ip 172.16.20.252\n    vrrp 20  priority 100\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.10.253 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.20.253 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:44:05,117 - nornir.core.task -    ERROR -      start() - Host 'R1-CPE-BAT-A': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+634 bytes copied in 0.140 secs (4529 bytes/sec)
+
+2023-05-01 12:44:05,119 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:44:05,121 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.254 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.254 255.255.255.0\n    exit\n\n\n\ninterface g2/0.10\n    vrrp 10 ip 172.16.10.252\n    vrrp 10  priority 110\n    vrrp 10 preempt\n    exit\n\ninterface g2/0.20\n    vrrp 20 ip 172.16.20.252\n    vrrp 20  priority 110\n    vrrp 20 preempt\n    exit\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.10.254 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.20.254 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:44:20,170 - nornir.core.task -    ERROR -      start() - Host 'R2-CPE-BAT-A': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+692 bytes copied in 0.116 secs (5966 bytes/sec)
+
+2023-05-01 12:44:20,170 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:44:20,170 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.253 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.253 255.255.255.0\n    exit\n\n\n\ninterface g3/0.10\n    vrrp 10 ip 172.16.30.252\n    vrrp 10  priority 100\n\ninterface g3/0.20\n    vrrp 20 ip 172.16.40.252\n    vrrp 20  priority 100\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.30.253 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.40.253 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:44:39,132 - nornir.core.task -    ERROR -      start() - Host 'R1-CPE-BAT-B': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+634 bytes copied in 0.124 secs (5113 bytes/sec)
+
+2023-05-01 12:44:39,133 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:44:39,134 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': 'interface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.254 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.254 255.255.255.0\n    exit\n\n\n\ninterface g3/0.10\n    vrrp 10 ip 172.16.30.252\n    vrrp 10  priority 110\n    vrrp 10 preempt\n    exit\n\ninterface g3/0.20\n    vrrp 20 ip 172.16.40.252\n    vrrp 20  priority 110\n    vrrp 20 preempt\n    exit\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.30.254 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.40.254 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:44:56,511 - nornir.core.task -    ERROR -      start() - Host 'R2-CPE-BAT-B': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+691 bytes copied in 0.128 secs (5398 bytes/sec)
+
+2023-05-01 12:44:56,513 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:45:23,192 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n\n\n\ninterface g2/0.10\n    vrrp 10 ip 172.16.10.252\n    vrrp 10  priority 100\n\ninterface g2/0.20\n    vrrp 20 ip 172.16.20.252\n    vrrp 20  priority 100\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.10.253 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.20.253 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:45:32,605 - nornir.core.task -    ERROR -      start() - Host 'R1-CPE-BAT-A': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+634 bytes copied in 0.144 secs (4403 bytes/sec)
+
+2023-05-01 12:45:32,607 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:45:32,607 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.254 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.254 255.255.255.0\n    exit\n\n\n\ninterface g2/0.10\n    vrrp 10 ip 172.16.10.252\n    vrrp 10  priority 110\n    vrrp 10 preempt\n    exit\n\ninterface g2/0.20\n    vrrp 20 ip 172.16.20.252\n    vrrp 20  priority 110\n    vrrp 20 preempt\n    exit\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.10.254 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.20.254 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:45:46,507 - nornir.core.task -    ERROR -      start() - Host 'R2-CPE-BAT-A': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+692 bytes copied in 0.120 secs (5767 bytes/sec)
+
+2023-05-01 12:45:46,508 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:45:46,508 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.253 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.253 255.255.255.0\n    exit\n\n\n\ninterface g3/0.10\n    vrrp 10 ip 172.16.30.252\n    vrrp 10  priority 100\n\ninterface g3/0.20\n    vrrp 20 ip 172.16.40.252\n    vrrp 20  priority 100\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.30.253 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.40.253 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:46:02,962 - nornir.core.task -    ERROR -      start() - Host 'R1-CPE-BAT-B': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+634 bytes copied in 0.136 secs (4662 bytes/sec)
+
+2023-05-01 12:46:02,964 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:46:02,965 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': 'interface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.254 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.254 255.255.255.0\n    exit\n\n\n\ninterface g3/0.10\n    vrrp 10 ip 172.16.30.252\n    vrrp 10  priority 110\n    vrrp 10 preempt\n    exit\n\ninterface g3/0.20\n    vrrp 20 ip 172.16.40.252\n    vrrp 20  priority 110\n    vrrp 20 preempt\n    exit\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.30.254 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.40.254 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:46:24,650 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n\n\n\ninterface g2/0.10\n    vrrp 10 ip 172.16.10.252\n    vrrp 10  priority 100\n\ninterface g2/0.20\n    vrrp 20 ip 172.16.20.252\n    vrrp 20  priority 100\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.10.253 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.20.253 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:46:33,982 - nornir.core.task -    ERROR -      start() - Host 'R1-CPE-BAT-A': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+634 bytes copied in 0.140 secs (4529 bytes/sec)
+
+2023-05-01 12:46:33,984 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:46:33,986 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.254 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.254 255.255.255.0\n    exit\n\n\n\ninterface g2/0.10\n    vrrp 10 ip 172.16.10.252\n    vrrp 10  priority 110\n    vrrp 10 preempt\n    exit\n\ninterface g2/0.20\n    vrrp 20 ip 172.16.20.252\n    vrrp 20  priority 110\n    vrrp 20 preempt\n    exit\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.10.254 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.20.254 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:46:47,155 - nornir.core.task -    ERROR -      start() - Host 'R2-CPE-BAT-A': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+692 bytes copied in 0.136 secs (5088 bytes/sec)
+
+2023-05-01 12:46:47,162 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:46:47,162 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.253 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.253 255.255.255.0\n    exit\n\n\n\ninterface g3/0.10\n    vrrp 10 ip 172.16.30.252\n    vrrp 10  priority 100\n\ninterface g3/0.20\n    vrrp 20 ip 172.16.40.252\n    vrrp 20  priority 100\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.30.253 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.40.253 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:47:02,429 - nornir.core.task -    ERROR -      start() - Host 'R1-CPE-BAT-B': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+634 bytes copied in 0.180 secs (3522 bytes/sec)
+
+2023-05-01 12:47:02,430 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:47:02,431 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': 'interface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.254 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.254 255.255.255.0\n    exit\n\n\n\ninterface g3/0.10\n    vrrp 10 ip 172.16.30.252\n    vrrp 10  priority 110\n    vrrp 10 preempt\n    exit\n\ninterface g3/0.20\n    vrrp 20 ip 172.16.40.252\n    vrrp 20  priority 110\n    vrrp 20 preempt\n    exit\nrouter ospf 1\nnetwork   area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.30.254 255.255.255.0 area 0\nexit\n\nrouter ospf 1\nnetwork 172.16.40.254 255.255.255.0 area 0\nexit\n'} on 1 hosts
+2023-05-01 12:47:18,957 - nornir.core.task -    ERROR -      start() - Host 'R2-CPE-BAT-B': task 'napalm_configure' failed with traceback:
+Traceback (most recent call last):
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/nornir_napalm/plugins/tasks/napalm_configure.py", line 48, in napalm_configure
+    device.commit_config(**commit_kwargs)
+  File "/home/cpe/.local/share/virtualenvs/devnet-rPqD-W-P/lib/python3.8/site-packages/napalm/ios/ios.py", line 598, in commit_config
+    raise MergeConfigException(merge_error)
+napalm.base.exceptions.MergeConfigException: Configuration merge failed; automatic rollback attempted:
+
+network   area 0
+          ^
+% Invalid input detected at '^' marker.
+
+691 bytes copied in 0.164 secs (4213 bytes/sec)
+
+2023-05-01 12:47:18,958 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:48:50,311 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.253 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.253 255.255.255.0\n    exit\n\n\n\ninterface g2/0.10\n    vrrp 10 ip 172.16.10.252\n    vrrp 10  priority 100\n\ninterface g2/0.20\n    vrrp 20 ip 172.16.20.252\n    vrrp 20  priority 100\n\n\n\nrouter ospf 1\nnetwork 172.16.10.253 255.255.255.0 area 0\nexit\n\n\n\nrouter ospf 1\nnetwork 172.16.20.253 255.255.255.0 area 0\nexit\n\n'} on 1 hosts
+2023-05-01 12:48:58,067 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:49:00,107 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g2/0\n    no shutdown\n    exit\ninterface g2/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.10.254 255.255.255.0\n    exit\n\ninterface g2/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.20.254 255.255.255.0\n    exit\n\n\n\ninterface g2/0.10\n    vrrp 10 ip 172.16.10.252\n    vrrp 10  priority 110\n    vrrp 10 preempt\n    exit\n\ninterface g2/0.20\n    vrrp 20 ip 172.16.20.252\n    vrrp 20  priority 110\n    vrrp 20 preempt\n    exit\n\n\n\nrouter ospf 1\nnetwork 172.16.10.254 255.255.255.0 area 0\nexit\n\n\n\nrouter ospf 1\nnetwork 172.16.20.254 255.255.255.0 area 0\nexit\n\n'} on 1 hosts
+2023-05-01 12:49:11,305 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:49:13,561 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.253 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.253 255.255.255.0\n    exit\n\n\n\ninterface g3/0.10\n    vrrp 10 ip 172.16.30.252\n    vrrp 10  priority 100\n\ninterface g3/0.20\n    vrrp 20 ip 172.16.40.252\n    vrrp 20  priority 100\n\n\n\nrouter ospf 1\nnetwork 172.16.30.253 255.255.255.0 area 0\nexit\n\n\n\nrouter ospf 1\nnetwork 172.16.40.253 255.255.255.0 area 0\nexit\n\n'} on 1 hosts
+2023-05-01 12:49:26,834 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts
+2023-05-01 12:49:29,554 -  nornir.core -     INFO -        run() - Running task 'napalm_configure' with args {'configuration': '\ninterface g3/0\n    no shutdown\n    exit\ninterface g3/0.10\n    encapsulation dot1Q 10\n    description "Gateway for teacher vlan"\n    ip address 172.16.30.254 255.255.255.0\n    exit\n\ninterface g3/0.20\n    encapsulation dot1Q 20\n    description "Gateway for student vlan"\n    ip address 172.16.40.254 255.255.255.0\n    exit\n\n\n\ninterface g3/0.10\n    vrrp 10 ip 172.16.30.252\n    vrrp 10  priority 110\n    vrrp 10 preempt\n    exit\n\ninterface g3/0.20\n    vrrp 20 ip 172.16.40.252\n    vrrp 20  priority 110\n    vrrp 20 preempt\n    exit\n\n\n\nrouter ospf 1\nnetwork 172.16.30.254 255.255.255.0 area 0\nexit\n\n\n\nrouter ospf 1\nnetwork 172.16.40.254 255.255.255.0 area 0\nexit\n\n'} on 1 hosts
+2023-05-01 12:49:42,752 -  nornir.core -     INFO -        run() - Running task 'netmiko_save_config' with args {} on 1 hosts

@@ -1,0 +1,7 @@
+{%- for interface in interfaces %}
+{% if 'g2/0' != interface.name and 'g3/0' != interface.name  %}
+router ospf 1
+network {{ interface.ip }} {{ interface.mask }} area 0
+exit
+{% endif %}
+{% endfor %}

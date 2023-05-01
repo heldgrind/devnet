@@ -172,12 +172,87 @@ def question_38(nr):
     pass
 
 def question_39(nr):
+    hostname = nr.inventory.hosts
+    for host in hostname:
+        filter = nr.filter(device_name=host)
+        result = filter.run(task=netmiko_send_config, config_commands=["ip scp server enable"])
+    Router1_A = nr.filter(device_name="R1-CPE-BAT-A")
+    with open("config/R1_CPE_LYON_BAT_A.conf") as f:
+        config = f.read()
+    result = Router1_A.run(task=napalm_configure, configuration=config)
+    print_result(result)
+    result = Router1_A.run(task=netmiko_save_config)
+    print_result(result)
+    Router2_A = nr.filter(device_name="R2-CPE-BAT-A")
+    with open("config/R2_CPE_LYON_BAT_A.conf") as f:
+        config = f.read()
+    result = Router2_A.run(task=napalm_configure, configuration=config)
+    print_result(result)
+    result = Router2_A.run(task=netmiko_save_config)
+    print_result(result)
+    ESW1_A = nr.filter(device_name="ESW1-CPE-BAT-A")
+    with open("config/ESW1_CPE_LYON_BAT_A.conf") as f:
+        config = f.read()
+    result = ESW1_A.run(task=napalm_configure, configuration=config)
+    print_result(result)
+    result = ESW1_A.run(task=netmiko_save_config)
+    print_result(result)
+    Router1_B = nr.filter(device_name="R1-CPE-BAT-B")
+    with open("config/R1_CPE_LYON_BAT_B.conf") as f:
+        config = f.read()
+    result = Router1_B.run(task=napalm_configure, configuration=config)
+    print_result(result)
+    result = Router1_B.run(task=netmiko_save_config)
+    print_result(result)
+    Router2_B = nr.filter(device_name="R2-CPE-BAT-B")
+    with open("config/R2_CPE_LYON_BAT_B.conf") as f:
+        config = f.read()
+    result = Router2_B.run(task=napalm_configure, configuration=config)
+    print_result(result)
+    result = Router2_B.run(task=netmiko_save_config)
+    print_result(result)
+    ESW1_B = nr.filter(device_name="ESW1-CPE-BAT-B")
+    with open("config/ESW1_CPE_LYON_BAT_B.conf") as f:
+        config = f.read()
+    result = ESW1_B.run(task=napalm_configure, configuration=config)
+    print_result(result)
+    result = ESW1_B.run(task=netmiko_save_config)
+    print_result(result)
     pass
 
 def question_39_d(nr):
+    
     pass
 
 def question_40(nr):
+    Router1_A = nr.filter(device_name="R1-CPE-BAT-A")
+    with open("config/R1_CPE_LYON_BAT_A.conf") as f:
+        config = f.read()
+    result = Router1_A.run(task=napalm_configure, configuration=config)
+    print_result(result)
+    result = Router1_A.run(task=netmiko_save_config)
+    print_result(result)
+    Router2_A = nr.filter(device_name="R2-CPE-BAT-A")
+    with open("config/R2_CPE_LYON_BAT_A.conf") as f:
+        config = f.read()
+    result = Router2_A.run(task=napalm_configure, configuration=config)
+    print_result(result)
+    result = Router2_A.run(task=netmiko_save_config)
+    print_result(result)
+    Router1_B = nr.filter(device_name="R1-CPE-BAT-B")
+    with open("config/R1_CPE_LYON_BAT_B.conf") as f:
+        config = f.read()
+    result = Router1_B.run(task=napalm_configure, configuration=config)
+    print_result(result)
+    result = Router1_B.run(task=netmiko_save_config)
+    print_result(result)
+    Router2_B = nr.filter(device_name="R2-CPE-BAT-B")
+    with open("config/R2_CPE_LYON_BAT_B.conf") as f:
+        config = f.read()
+    result = Router2_B.run(task=napalm_configure, configuration=config)
+    print_result(result)
+    result = Router2_B.run(task=netmiko_save_config)
+    print_result(result)
     pass
     
 
@@ -208,9 +283,9 @@ if __name__ == "__main__":
     #question_35(nr)
     #question_36(nr)
     #question_37(nr)
-    question_38(nr)
+    #question_38(nr)
     #question_39(nr)
     #question_39_d(nr)
 
-    #question_40(nr)
+    question_40(nr)
     pass

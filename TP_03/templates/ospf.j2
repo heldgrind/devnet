@@ -1,0 +1,5 @@
+{%- for interface in interfaces %}
+router ospf 1
+network {{ interface.ip }} {{ interface.mask }} area 0
+exit
+{% endfor %}
