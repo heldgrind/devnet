@@ -70,6 +70,14 @@ def question_16(net_connect):
 
 
 def question_17(net_connect):
+    net_connect = ConnectHandler(**r01)
+    commands =[
+        'no int l0',
+        'no int l1',
+        'no int l2',
+        'no int l3',]
+    output = net_connect.send_config_set(commands)
+    output = net_connect.save_config()
     pass
 
 

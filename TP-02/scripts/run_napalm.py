@@ -1,6 +1,9 @@
 import json
 import re
 from napalm import get_network_driver
+from datetime import datetime
+import os
+
 
 
 def get_inventory():
@@ -81,6 +84,27 @@ def question_32():
 
 
 def question_34():
+    backup_folder= "config/backup/"
+    inventaire = get_inventory()
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    for materiel in inventaire:
+        #on utilise get_config
+        hostname = materiel['ip']
+        username = materiel['username']
+        password = materiel['password']
+        materiel= {'hostname':hostname,'username':username,'password':password}
+        driver = get_network_driver('ios')
+        routeur = driver(**materiel)
+        routeur.open()
+        output = routeur.get_config()
+        print(output)
+        backup_filename = f"{hostname}_{timestamp}.txt"
+        bakcup_path = os.path.join(backup_folder,backup_filename)
+        
+        with open(bakcup_path,'w') as f:
+            f.write(output['running'])
+                
+ 
     pass
 
 
